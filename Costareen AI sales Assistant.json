@@ -1,0 +1,206 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "47e4dace-a484-4e9a-bb02-549d15da1b23",
+      "name": "When chat message received",
+      "webhookId": "c168544e-1e8c-4011-911d-fc0776dab96b"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "Your name is Faujia Alvi, a sales representative at Costareen.\n1. Communication Style: Speak like a real human on WhatsApp/Messenger. Use very short, concise, and natural sentences. Avoid long paragraphs and AI-sounding preambles.\n2. Multilingual: You are fluent in English, Bangla, and Banglish (Bangla typed in English letters). ALWAYS respond in the same language and script used by the customer.\n3. Tone: Use a soft, polite, and helpful tone. In Bangla/Banglish, use terms like 'Vaiya' (for brothers) or 'Apu' (for sisters) if it fits the context naturally. \n4. Example (Banglish): If a customer asks 'white filament available ase?', respond with something like 'Hea vaiya, available ase!'. If out of stock: 'Sorry vaiya, white filament shesh, kintu bone white available ase. Dekhben?'\n5. Stock Privacy: Never share exact stock numbers. Simply say 'In Stock/Available' or 'Out of Stock'. \n6. Business Scope: We sell 3D printers, filaments, and accessories. We do NOT provide custom 3D printing services.\n7. Goal: Provide quick, expert hardware advice and close sales in a friendly, local way."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "a61c6eb1-6b87-4513-a1be-de9df65c9de4",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        80,
+        208
+      ],
+      "id": "bbd8a02b-18a0-4bfa-ae5d-a86a3144cf95",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "U77uUFKvWMuI2ZkC",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        224,
+        208
+      ],
+      "id": "703c3e45-7be9-4279-a060-5b83a866a12c",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Z2xjMQ8ePGXCw7CjJ7ACWjUk6P767-5Z3BM88lK_7dg",
+          "mode": "list",
+          "cachedResultName": "Project of Costareen 3D Manager main",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Z2xjMQ8ePGXCw7CjJ7ACWjUk6P767-5Z3BM88lK_7dg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 273772850,
+          "mode": "list",
+          "cachedResultName": "SALES_ENTRY",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Z2xjMQ8ePGXCw7CjJ7ACWjUk6P767-5Z3BM88lK_7dg/edit#gid=273772850"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        560,
+        208
+      ],
+      "id": "fef783ce-c636-450d-b9fd-10fd3f6a3bcc",
+      "name": "Get row(s) in sheet in Google Sheets1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jShRIPPzlmwae8G5",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Z2xjMQ8ePGXCw7CjJ7ACWjUk6P767-5Z3BM88lK_7dg",
+          "mode": "list",
+          "cachedResultName": "Project of Costareen 3D Manager main",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Z2xjMQ8ePGXCw7CjJ7ACWjUk6P767-5Z3BM88lK_7dg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 978715961,
+          "mode": "list",
+          "cachedResultName": "STOCK_VIEW",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Z2xjMQ8ePGXCw7CjJ7ACWjUk6P767-5Z3BM88lK_7dg/edit#gid=978715961"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        368,
+        208
+      ],
+      "id": "c9b8a548-af90-48f5-8110-31dfa9362c58",
+      "name": "Get row(s) in sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jShRIPPzlmwae8G5",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet in Google Sheets1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "180adfd4-ac4d-4629-a50f-4be41d78c592",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "dc67cab0e1df3eaf4262a44a9f4c433519fee62dffe4cfe8c0f95b82d556e888"
+  },
+  "nodeGroups": [],
+  "id": "bMHRvE7HvFxqv4Tp",
+  "tags": []
+}
